@@ -1,0 +1,20 @@
+{
+  "name": "my-site-auth",
+  "main": "src/main.py",
+  "compatibility_date": "2026-10-03",
+  "compatibility_flags": ["python_workers"],
+  "vars": {
+    "AUTH_APP_NAME": "My Site",
+    "AUTH_EMAIL_FROM": "My Site <accounts@example.com>",
+    "AUTH_COOKIE_NAME": "my_site_session",
+    "AUTH_COOKIE_SECURE": "true"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "my-site-auth",
+      "database_id": "REPLACE_WITH_D1_DATABASE_ID",
+      "migrations_dir": "migrations"
+    }
+  ]
+}
