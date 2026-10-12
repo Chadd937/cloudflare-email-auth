@@ -68,4 +68,15 @@ jobs:
 
           npx --yes wrangler@4 d1 migrations apply getcryptodomains-auth --remote
           uv run pywrangler deploy
-          curl --fail --silent --show-error https://auth.getcryptodomains.com/healthz
+          echo "Waiting for the custom-domain DNS and health endpoint to become reachable..."
+          for attempt in $(seq 1 18); do
+            if curl --fail --silent --show-error https://auth.getcryptodomains.com/healthz; then
+              echo
+              echo "Authentication health check passed."
+              exit 0
+            fi
+            echo "Health check attempt $attempt/18 did not pass; retrying in 10 seconds."
+            sleep 10
+          done
+          echo "::error::Worker deployed, but auth.getcryptodomains.com/healthz did not become reachable within 3 minutes."
+          exit 1
