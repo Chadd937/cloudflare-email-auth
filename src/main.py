@@ -189,6 +189,13 @@ async def session(request: Request):
     return public_session(await current_account(request))
 
 
+@app.get("/auth/identity")
+async def identity(request: Request):
+    """Return the authenticated account identifier for trusted server-side callers."""
+    account = await require_account(request)
+    return {"authenticated": True, "verified": True, "account_id": str(account["email_hash"])}
+
+
 @app.post("/auth/email/request")
 async def request_email_code(payload: EmailRequest, request: Request):
     email = normalize_email(payload.email)
