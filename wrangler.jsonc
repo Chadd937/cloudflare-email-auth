@@ -1,0 +1,28 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "getcryptodomains-auth",
+  "main": "src/main.py",
+  "compatibility_date": "2026-10-12",
+  "compatibility_flags": ["python_workers"],
+  "workers_dev": true,
+  "vars": {
+    "AUTH_APP_NAME": "GetCryptoDomains",
+    "AUTH_EMAIL_FROM": "GetCryptoDomains <accounts@getcryptodomains.com>",
+    "AUTH_COOKIE_NAME": "site_session",
+    "AUTH_COOKIE_SECURE": "true"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "getcryptodomains-auth",
+      "database_id": "REPLACE_WITH_D1_DATABASE_ID",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "routes": [
+    {
+      "pattern": "auth.getcryptodomains.com",
+      "custom_domain": true
+    }
+  ]
+}
